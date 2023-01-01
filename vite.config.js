@@ -7,10 +7,10 @@ export default defineConfig({
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate',
     injectRegister: 'auto',
-    includeAssets: ['src/assets/favicon.ico', 'src/assets/apple-touch-icon.png', 'src/assets/masked-icon.svg'],
-    // devOptions: {
-    //   enabled: true
-    // },
+    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+    devOptions: {
+      enabled: true
+    },
     manifest: {
       name: 'Azad Pay',
       short_name: 'azad_pay',
@@ -18,12 +18,12 @@ export default defineConfig({
       theme_color: '#0097A7',
       icons: [
         {
-          src: 'src/assets/pwa-192x192.png',
+          src: 'pwa-192x192.png',
           sizes: '192x192',
           type: 'image/png'
         },
         {
-          src: 'src/assets/pwa-512x512.png',
+          src: 'pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png'
         }

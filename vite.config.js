@@ -8,9 +8,9 @@ export default defineConfig({
     registerType: 'autoUpdate',
     injectRegister: 'auto',
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
-    devOptions: {
-      enabled: true
-    },
+    // devOptions: {
+    //   enabled: true
+    // },
     manifest: {
       name: 'Azad Pay',
       short_name: 'azad_pay',

@@ -17,7 +17,7 @@ const Home = () => {
     }, [])
     return (
         <Layout>
-            <p>
+            <p className="text-lg font-vazir rtl py-6 text-center">
                 قیمت دلار {usd}
             </p>
         </Layout>

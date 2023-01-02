@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('/assets/fonts/Vazirmatn[wght].woff2') format('woff2 supports variations'),
+         url('/assets/fonts/Vazirmatn[wght].woff2') format('woff2-variations');
+    font-weight: 200 400 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+.rtl {
+    direction: rtl;
+}

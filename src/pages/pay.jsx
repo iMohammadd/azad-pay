@@ -36,7 +36,7 @@ const Pay = () => {
 
     return (
         <Layout>
-            <div className="rtl font-vazir px-4 py-6 bg-white rounded mx-4">
+            <div className="rtl font-vazir px-4 py-6 bg-white rounded mx-4 mb-16">
                 { show ? 
                 (<div className="flex flex-col justify-center">
                     <QRCode
@@ -68,7 +68,36 @@ const Pay = () => {
                         </span>
                     </div>
                     <div className="flex flex-col gap-2 mt-4">
-                        <label htmlFor="name" className="pr-2 font-bold">
+                        <ul className="grid w-full gap-4 md:grid-cols-3">
+                            <li>
+                                <input type="radio" id="trc20" name="token" value="trc20" className="hidden peer" onChange={form.handleChange} />
+                                <label htmlFor="trc20" className="inline-flex items-center justify-between w-full p-5 border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600">
+                                    <div className="block">
+                                        <div className="w-full text-lg font-semibold">USDT</div>
+                                        <div className="w-full">TRC20</div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" id="erc20" name="token" value="erc20" className="hidden peer" onChange={form.handleChange} />
+                                <label htmlFor="erc20" className="inline-flex items-center justify-between w-full p-5 border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600">
+                                    <div className="block">
+                                        <div className="w-full text-lg font-semibold">USDT</div>
+                                        <div className="w-full">ERC20</div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" id="bep20" name="token" value="bep20" className="hidden peer" onChange={form.handleChange} />
+                                <label htmlFor="bep20" className="inline-flex items-center justify-between w-full p-5 border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600">
+                                    <div className="block">
+                                        <div className="w-full text-lg font-semibold">USDT</div>
+                                        <div className="w-full">BEP20</div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                        {/* <label htmlFor="name" className="pr-2 font-bold">
                             توکن رمز ارز
                         </label>
                         <select 
@@ -79,7 +108,7 @@ const Pay = () => {
                             <option id="trc20" value="trc20">USDT trc20</option>
                             <option id="erc20" value="erc20">USDT erc20</option>
                             <option id="bep20" value="bep20">USDT bep20</option>
-                        </select>
+                        </select> */}
                     </div>
                     <div className="mt-4">
                         <button type="submit" className="px-4 py-2 transition ease-in-out duration-300 bg-cyan-600 hover:bg-cyan-800 text-white w-full rounded-md">ایجاد فاکتور</button>

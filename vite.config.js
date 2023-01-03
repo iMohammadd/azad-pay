@@ -7,13 +7,13 @@ export default defineConfig({
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate',
     injectRegister: 'auto',
-    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'assets/fonts/Vazirmatn[wght].woff'],
     // devOptions: {
     //   enabled: true
     // },
     manifest: {
       name: 'Azad Pay',
-      short_name: 'azad_pay',
+      short_name: 'Azad Pay',
       description: 'accept stable coin instead rial',
       theme_color: '#0097A7',
       icons: [

@@ -6,7 +6,9 @@ const Layout = ({ children }) => {
     return (
         <>
         <section className="w-full h-screen bg-gray-100">
+            <div className="px-6 py-4">
             { children }
+            </div>
         </section>
         <footer className="w-full bottom-0 left-0 fixed text-black">
             <ul className="flex justify-between bg-gray-200">

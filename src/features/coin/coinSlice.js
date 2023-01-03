@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    trc20: '',
-    erc20: '',
-    bep20: '',
+    trc20: 'trcxyz',
+    erc20: 'ercxyz',
+    bep20: 'bepxyz',
     btc: ''
 }
 

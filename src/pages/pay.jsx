@@ -3,12 +3,45 @@ import QRCode from "react-qr-code"
 import { useDispatch, useSelector } from "react-redux"
 import Layout from "../components/layout"
 import { setInvoiceAmount, setInvoiceCoin, toggleInvoiceShow } from "../features/invoice/invoiceSlice"
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { entries } from "idb-keyval"
+import { useEffect } from "react"
+import { setCoin } from "../features/coin/coinSlice"
 
 const Pay = () => {
     const { coin, amount, show } = useSelector(state => state.invoice)
     const { trc20, erc20, bep20, btc } = useSelector(state => state.coin)
     const { usd } = useSelector(state => state.price)
     const dispatch = useDispatch()
+    const MySwal = withReactContent(Swal)
+
+    useEffect(() => {
+        const setTokens = () => {
+            entries().then((tokens) => {
+                tokens.forEach(token => {
+                    dispatch(setCoin({
+                        token: token[0],
+                        address: token[1]
+                    }))
+                })
+            })
+        }
+        setTokens()
+    }, [])
+
+    const dispatchable = (token, callback) => {
+        if(token == '') {
+            MySwal.fire({
+                title: 'خطا',
+                html: `<span className="rtl font-vazir">آدرس توکن انتخاب شده را در تنظیمات وارد نکرده‌اید</span>`,
+                icon: 'warning'
+            })
+        } else {
+            dispatch(toggleInvoiceShow())
+            return callback
+        }
+    }
 
     const form = useFormik({
         initialValues: {
@@ -17,20 +50,21 @@ const Pay = () => {
         },
         onSubmit: values => {
             console.log(values)
-            console.log(values.irr / usd)
-            dispatch(setInvoiceAmount(values.irr / usd))
+            const amount = values.irr / usd
+            console.log(amount.toFixed(6))
+            dispatch(setInvoiceAmount(amount.toFixed(6)))
             switch(values.token) {
                 case 'trc20':
-                    dispatch(setInvoiceCoin(trc20))
+                    dispatchable(trc20, dispatch(setInvoiceCoin(trc20)))
                     break
                 case 'erc20':
-                    dispatch(setInvoiceCoin(erc20))
+                    dispatchable(erc20, dispatch(setInvoiceCoin(erc20)))
                     break
                 case 'bep20':
-                    dispatch(setInvoiceCoin(bep20))
+                    dispatchable(bep20, dispatch(setInvoiceCoin(bep20)))
                     break
             }
-            dispatch(toggleInvoiceShow())
+            
         }
     })
 
@@ -68,6 +102,7 @@ const Pay = () => {
                         </span>
                     </div>
                     <div className="flex flex-col gap-2 mt-4">
+                        <span className="pr-2 font-bold">توکن</span>
                         <ul className="grid w-full gap-4 md:grid-cols-3">
                             <li>
                                 <input type="radio" id="trc20" name="token" value="trc20" className="hidden peer" onChange={form.handleChange} />

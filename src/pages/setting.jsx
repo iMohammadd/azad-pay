@@ -8,8 +8,12 @@ import { setCoin } from "../features/coin/coinSlice"
 const Setting = () => {
     const dispatch = useDispatch()
     const tokenSchema = yup.object({
-        address: yup.string().required('آدرس کیف پول را وارد کنید'),
-        token: yup.string().required('یک توکن را انتخاب کنید')
+        token: yup.string().required('یک توکن را انتخاب کنید'),
+        address: yup.string().when("token", {
+            is: (token) => token == 'trc20',
+            then: yup.string().matches('^T[A-Za-z1-9]{33}$', 'ساختار آدرس کیف پول وارد شده صحیح نیست').required('آدرس کیف پول را وارد کنید'),
+            otherwise: yup.string().matches('^0x+[A-F,a-f,0-9]{40}$', 'ساختار آدرس کیف پول وارد شده صحیح نیست').required('آدرس کیف پول را وارد کنید')
+        })
     })
     const form = useFormik({
         initialValues: {

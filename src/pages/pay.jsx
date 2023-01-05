@@ -8,11 +8,12 @@ import withReactContent from 'sweetalert2-react-content'
 import { entries } from "idb-keyval"
 import { useEffect } from "react"
 import { setCoin } from "../features/coin/coinSlice"
+import { getUsdPrice } from "../features/price/priceSlice"
 
 const Pay = () => {
     const { coin, amount, show } = useSelector(state => state.invoice)
     const { trc20, erc20, bep20, btc } = useSelector(state => state.coin)
-    const { usd } = useSelector(state => state.price)
+    const { error, usd } = useSelector(state => state.price)
     const dispatch = useDispatch()
     const MySwal = withReactContent(Swal)
 
@@ -28,6 +29,7 @@ const Pay = () => {
             })
         }
         setTokens()
+        dispatch(getUsdPrice())
     }, [])
 
     const dispatchable = (token, callback) => {
@@ -67,6 +69,19 @@ const Pay = () => {
             
         }
     })
+
+    if(error != "") {
+        return (
+            <Layout>
+                <div className="flex h-screen text-lg font-vazir rtl py-6 text-center">
+                    <div className="m-auto w-full bg-red-700 rounded px-4 py-6">
+                        <span className="text-gray-300">خطا در دریافت قیمت دلار</span><br />
+                        <span className="text-gray-100">لطفا اتصالتان به اینترنت را برقرار کنید</span>
+                    </div>
+                </div>
+            </Layout>
+        )
+    }
 
     return (
         <Layout>

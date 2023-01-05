@@ -2,23 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
 const initialState = {
-    usd: 25000,
+    usd: 0,
     isLoading: false,
     error: ''
 }
 
 export const getUsdPrice = createAsyncThunk(
     'price/getUsdPrice',
-    async () => {
+    async (_, thunkApi) => {
         try {
             const response = await axios.get('https://api.tetherland.com/currencies')
-
-            console.log(response)
-
             return response.data
         } catch (error) {
-            console.log(error)
-            return error
+            throw thunkApi.rejectWithValue(error)
         }
     }
 )
@@ -31,16 +27,19 @@ const priceSlice = createSlice({
             state.usd = action.payload
         }
     },
-    extraReducers: buider => {
-        buider.addCase(getUsdPrice.pending, (state) => state.isLoading = true)
+    extraReducers: (buider) => {
+        buider.addCase(getUsdPrice.pending, (state) => {
+            state.isLoading = true
+            state.error = ""
+        })
         buider.addCase(getUsdPrice.fulfilled, (state, { payload }) => {
             state.isLoading = false
-            console.log(payload)
             state.usd = payload.data.currencies.USDT.price
         })
         buider.addCase(getUsdPrice.rejected, (state, { payload }) => {
             state.isLoading = false
-            state.error = payload
+            console.log(payload)
+            state.error = payload.message
         })
         // [getUsdPrice.pending] : (state) => state.isLoading = true,
         // [getUsdPrice.fulfilled] : (state, action) => {

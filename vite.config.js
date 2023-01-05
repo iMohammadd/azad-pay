@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate',
     injectRegister: 'auto',
-    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'assets/fonts/Vazirmatn[wght].woff'],
+    includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'assets/fonts/*.woff'],
     // devOptions: {
     //   enabled: true
     // },

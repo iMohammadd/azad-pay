@@ -1,16 +1,10 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import Layout from "../components/layout"
-import { getUsdPrice } from "../features/price/priceSlice"
 
 const Home = () => {
     const { usd } = useSelector(store => store.price)
-    const dispatch = useDispatch()
     const { error } = useSelector(state => state.price)
 
-    useEffect(() => {
-        dispatch(getUsdPrice())
-    }, [])
     return (
         <Layout>
             <div className="flex h-screen text-lg font-vazir rtl py-6 text-center">

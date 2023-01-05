@@ -29,7 +29,7 @@ const Pay = () => {
             })
         }
         setTokens()
-        dispatch(getUsdPrice())
+        // dispatch(getUsdPrice())
     }, [])
 
     const dispatchable = (token, callback) => {
